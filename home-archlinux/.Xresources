@@ -8,6 +8,13 @@ Xft.autohint:	0
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
 
+! Escape home and end keys
+
+URxvt.keysym.Home: \033[1~
+URxvt.keysym.End: \033[4~
+URxvt.keysym.KP_Home: \033[1~
+URxvt.keysym.KP_End:  \033[4~
+
 ! Xcursor --------------------------------------------------------------------
 
 Xcursor.theme: Vanilla-DMZ-AA

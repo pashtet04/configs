@@ -10,8 +10,10 @@ bindkey -v
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
 
-zstyle ':completion:*' menu select completer _complete _ignored
-zstyle :compinstall filename '/home/nolche/.zshrc'
+zstyle ':completion:*' menu select
+setopt COMPLETE_ALIASES
+zstyle ':completion::complete:*' gain-privileges 1
+#zstyle :compinstall filename '/home/nolche/.zshrc'
 
 autoload -Uz up-line-or-beginning-search down-line-or-beginning-search
 zle -N up-line-or-beginning-search
