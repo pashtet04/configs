@@ -26,8 +26,9 @@ reset=$(tput sgr0)
 red=$(tput setaf 1)
 blue=$(tput setaf 4)
 green=$(tput setaf 2)
-
-PS1='\[$red\]\u\[$reset\] \[$blue\]\w\[$reset\] \[$red\]\$ \[$reset\]\[$green\] '
+#PS1='\[$red\]\u\[$reset\] \[$blue\]\w\[$reset\] \[$red\]\$ \[$reset\]\[$green\] '
+source '/opt/kube-ps1/kube-ps1.sh'
+PS1='[\u@\h \W $(kube_ps1)]$ '
 
 # For basic completion use lines in the form of complete -cf your_command (these will conflict with the bash-completion settings)
 complete -cf sudo
@@ -66,7 +67,9 @@ man() {
 }
 
 # Default editor
-export VISUAL="vim"
+export VISUAL="neovim"
+export EDITOR=$VISUAL
+alias vim='nvim' 
 
 # Color Terminal for man pages
 man() {
@@ -85,11 +88,13 @@ POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
 . /usr/share/powerline/bindings/bash/powerline.sh
 
-EDITOR=vim
-
 # The next line updates PATH for Yandex Cloud CLI.
 if [ -f '/home/nolche/yandex-cloud/path.bash.inc' ]; then source '/home/nolche/yandex-cloud/path.bash.inc'; fi
 
 # The next line enables shell command completion for yc.
 if [ -f '/home/nolche/yandex-cloud/completion.bash.inc' ]; then source '/home/nolche/yandex-cloud/completion.bash.inc'; fi
 
+eval "$(starship init bash)"
+
+# add Pulumi to the PATH
+export PATH=$PATH:$HOME/.pulumi/bin

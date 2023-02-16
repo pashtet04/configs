@@ -14,7 +14,10 @@ Xft.rgba:       rgb
 Xft.autohint:	0
 Xft.hinting:    true
 Xft.hintstyle:  hintslight
-URxvt.font: xft:Monaco \for \Powerline:pixelsize=18
+! URxvt.font: xft:Monaco \for \Powerline:pixelsize=18
+! URxvt*font: xft:Inconsolata Nerd Font Mono:size=15, xft:DejaVu Sans:size=12
+URxvt*font:                 xft:Fira Code Retina:pixelsize=11:minspace=False, xft:DejaVu Sans:pixelsize=8, xft: Symbola
+URxvt*boldFont:             xft:Fira Code Retina:pixelsize=11:minspace=False, xft:DejaVu Sans:pixelsize=8, xft: Symbola
 
 ! Disable printing the terminal contents when pressing PrintScreen.
 URxvt.print-pipe: "cat > /dev/null"
@@ -48,7 +51,7 @@ Xcursor.size:  22
 ! Compile xft: Attempt to find a visual with the given bit depth;
 URxvt*depth: 32 
 
-URxvt.letterSpace: -1
+URxvt.letterSpace: 1
 URxvt.geometry: 120x40
 
 ! special
