@@ -2,33 +2,40 @@
 # ~/.bashrc
 #
 
+if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+  exec tmux new-session -A -s main
+fi
+
 # https://github.com/ahmetb/kubectl-aliases
 [ -f ~/.kubectl_aliases ] && source ~/.kubectl_aliases
 # Print the full command before running it
-#function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }
+function kubectl() { echo "+ kubectl $@">&2; command kubectl $@; }
 ### KUBECTL
 source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.
 
 #$PATH variables
 PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
-export PATH=$HOME/.local/bin:$PATH
-export PATH="${PATH}:${HOME}/.krew/bin"
-export TERM=xterm-256color
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$PATH:${HOME}/.krew/bin"
+[ -z "$TMUX" ] && export TERM="xterm-256color"
 
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+alias vim='nvim'
 alias ls='ls --color=auto'
 alias ll='ls -al --color=auto'
+alias sudo='sudo '
 #PS1='[\u@\h \W]\$ '  # To leave the default one
 #DO NOT USE RAW ESCAPES, USE TPUT
 reset=$(tput sgr0)
 red=$(tput setaf 1)
 blue=$(tput setaf 4)
 green=$(tput setaf 2)
-#PS1='\[$red\]\u\[$reset\] \[$blue\]\w\[$reset\] \[$red\]\$ \[$reset\]\[$green\] '
-source '/opt/kube-ps1/kube-ps1.sh'
-PS1='[\u@\h \W $(kube_ps1)]$ '
+export KUBECTX_CURRENT_FGCOLOR=$(tput setaf 6) # blue text
+export KUBECTX_CURRENT_BGCOLOR=$(tput setab 7) # white background
+
+PS1='\[$red\]\u\[$reset\] \[$blue\]\w\[$reset\] \[$red\]\$ \[$reset\]\[$green\] '
 
 # For basic completion use lines in the form of complete -cf your_command (these will conflict with the bash-completion settings)
 complete -cf sudo
@@ -67,9 +74,8 @@ man() {
 }
 
 # Default editor
-export VISUAL="neovim"
-export EDITOR=$VISUAL
-alias vim='nvim' 
+export VISUAL="nvim"
+export EDITOR=nvim
 
 # Color Terminal for man pages
 man() {
@@ -83,9 +89,9 @@ man() {
     command man "$@"
 }
 
-powerline-daemon -q
 POWERLINE_BASH_CONTINUATION=1
 POWERLINE_BASH_SELECT=1
+powerline-daemon -q
 . /usr/share/powerline/bindings/bash/powerline.sh
 
 # The next line updates PATH for Yandex Cloud CLI.
@@ -94,7 +100,8 @@ if [ -f '/home/nolche/yandex-cloud/path.bash.inc' ]; then source '/home/nolche/y
 # The next line enables shell command completion for yc.
 if [ -f '/home/nolche/yandex-cloud/completion.bash.inc' ]; then source '/home/nolche/yandex-cloud/completion.bash.inc'; fi
 
-eval "$(starship init bash)"
-
 # add Pulumi to the PATH
 export PATH=$PATH:$HOME/.pulumi/bin
+
+#kubectx and kubens
+export PATH=~/.kubectx:$PATH

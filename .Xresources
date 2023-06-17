@@ -16,8 +16,8 @@ Xft.hinting:    true
 Xft.hintstyle:  hintslight
 ! URxvt.font: xft:Monaco \for \Powerline:pixelsize=18
 ! URxvt*font: xft:Inconsolata Nerd Font Mono:size=15, xft:DejaVu Sans:size=12
-URxvt*font:                 xft:Fira Code Retina:pixelsize=11:minspace=False, xft:DejaVu Sans:pixelsize=8, xft: Symbola
-URxvt*boldFont:             xft:Fira Code Retina:pixelsize=11:minspace=False, xft:DejaVu Sans:pixelsize=8, xft: Symbola
+ URxvt*font:                 xft:Fira Code Retina:pixelsize=11:minspace=False, xft:DejaVu Sans:pixelsize=8, xft: Symbola
+ URxvt*boldFont:             xft:Fira Code Retina:pixelsize=11:minspace=False, xft:DejaVu Sans:pixelsize=8, xft: Symbola
 
 ! Disable printing the terminal contents when pressing PrintScreen.
 URxvt.print-pipe: "cat > /dev/null"
